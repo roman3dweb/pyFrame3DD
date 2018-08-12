@@ -1,17 +1,13 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-example.py
-
-Created by Andrew Ning on 2013-11-05.
-Copyright (c) NREL. All rights reserved.
-"""
-
 import numpy as np
 
-from frame3dd import Frame, NodeData, ReactionData, ElementData, Options, \
-    StaticLoadCase
+import pyframe3dd
 
+print('pyframe3dd')
+
+for i in dir(pyframe3dd):
+    print(i)
+
+from pyframe3dd.frame3dd import Frame, NodeData, ReactionData, ElementData, Options, StaticLoadCase
 
 # ------- node data ----------------
 
@@ -215,100 +211,91 @@ nE = len(elements.element)  # number of elements
 # nM = dynamic.nM  # number of modes
 
 # node displacements
-'''
+
+
+import time
+
 for iCase in range(nC):
+    print ('case_idx:', iCase)
+    print ('node:', displacements.node[iCase, :])
+    print ('dx:', displacements.dx[iCase, :])
+    print ('dy:', displacements.dy[iCase, :])
+    print ('dz:', displacements.dz[iCase, :])
+    print ('dxrot:', displacements.dxrot[iCase, :])
+    print ('dyrot:', displacements.dyrot[iCase, :])
+    print ('dzrot:', displacements.dzrot[iCase, :])
+    print ()
+    print ('element =', forces.element[iCase, :])
+    print ('node =', forces.node[iCase, :])
+    print ('Nx =', forces.Nx[iCase, :])
+    print ('Vy =', forces.Vy[iCase, :])
+    print ('Vz =', forces.Vz[iCase, :])
+    print ('Txx =', forces.Txx[iCase, :])
+    print ('Myy =', forces.Myy[iCase, :])
+    print ('Mzz =', forces.Mzz[iCase, :])
+    print ()
+    print ('nodesR =', reactions.node[iCase, :])
+    print ('RFx =', reactions.Fx[iCase, :])
+    print ('RFy =', reactions.Fy[iCase, :])
+    print ('RFz =', reactions.Fz[iCase, :])
+    print ('RMxx =', reactions.Mxx[iCase, :])
+    print ('RMyy =', reactions.Myy[iCase, :])
+    print ('RMzz =', reactions.Mzz[iCase, :])
+    print ()
+    
+    
+    
+print ()
 
-    print 'case_idx:', iCase
+time.sleep(2)
 
-    print 'node:', displacements.node[iCase, :]
-    print 'dx:', displacements.dx[iCase, :]
-    print 'dy:', displacements.dy[iCase, :]
-    print 'dz:', displacements.dz[iCase, :]
-    print 'dxrot:', displacements.dxrot[iCase, :]
-    print 'dyrot:', displacements.dyrot[iCase, :]
-    print 'dzrot:', displacements.dzrot[iCase, :]
-    print
-    print 'element =', forces.element[iCase, :]
-    print 'node =', forces.node[iCase, :]
-    print 'Nx =', forces.Nx[iCase, :]
-    print 'Vy =', forces.Vy[iCase, :]
-    print 'Vz =', forces.Vz[iCase, :]
-    print 'Txx =', forces.Txx[iCase, :]
-    print 'Myy =', forces.Myy[iCase, :]
-    print 'Mzz =', forces.Mzz[iCase, :]
-    print
-    print 'nodesR =', reactions.node[iCase, :]
-    print 'RFx =', reactions.Fx[iCase, :]
-    print 'RFy =', reactions.Fy[iCase, :]
-    print 'RFz =', reactions.Fz[iCase, :]
-    print 'RMxx =', reactions.Mxx[iCase, :]
-    print 'RMyy =', reactions.Myy[iCase, :]
-    print 'RMzz =', reactions.Mzz[iCase, :]
-    print
-
-print
-print
-
-
+print ()
 # internal forces
-
 # note just showing for one element
 iE = 3
-
-
 for iCase in range(nC):
+    print ('case_idx:', iCase)
+    print ('element_idx:', iE)
+    print ('x =', internalForces[iE].x[iCase, :])
+    print ('Nx =', internalForces[iE].Nx[iCase, :])
+    print ('Vy =', internalForces[iE].Vy[iCase, :])
+    print ('Vz =', internalForces[iE].Vz[iCase, :])
+    print ('Tx =', internalForces[iE].Tx[iCase, :])
+    print ('My =', internalForces[iE].My[iCase, :])
+    print ('Mz =', internalForces[iE].Mz[iCase, :])
+    print ('Dx =', internalForces[iE].Dx[iCase, :])
+    print ('Dy =', internalForces[iE].Dy[iCase, :])
+    print ('Dz =', internalForces[iE].Dz[iCase, :])
+    print ('Rx =', internalForces[iE].Rx[iCase, :])
+    print ()
+print ()
 
-    print 'case_idx:', iCase
-    print 'element_idx:', iE
-
-    print 'x =', internalForces[iE].x[iCase, :]
-    print 'Nx =', internalForces[iE].Nx[iCase, :]
-    print 'Vy =', internalForces[iE].Vy[iCase, :]
-    print 'Vz =', internalForces[iE].Vz[iCase, :]
-    print 'Tx =', internalForces[iE].Tx[iCase, :]
-    print 'My =', internalForces[iE].My[iCase, :]
-    print 'Mz =', internalForces[iE].Mz[iCase, :]
-    print 'Dx =', internalForces[iE].Dx[iCase, :]
-    print 'Dy =', internalForces[iE].Dy[iCase, :]
-    print 'Dz =', internalForces[iE].Dz[iCase, :]
-    print 'Rx =', internalForces[iE].Rx[iCase, :]
-    print
-
-print
-print
-
-
+time.sleep(2)
+print ()
 # mass data
-
-print 'total_mass =', mass.total_mass
-print 'struct_mass =', mass.struct_mass
-print 'node =', mass.node
-print 'xmass =', mass.xmass
-print 'ymass =', mass.ymass
-print 'zmass =', mass.zmass
-print 'xinrta =', mass.xinrta
-print 'yinrta =', mass.yinrta
-print 'zinrta =', mass.zinrta
-print
-print
-
-
-
+print ('total_mass =', mass.total_mass)
+print ('struct_mass =', mass.struct_mass)
+print ('node =', mass.node)
+print ('xmass =', mass.xmass)
+print ('ymass =', mass.ymass)
+print ('zmass =', mass.zmass)
+print ('xinrta =', mass.xinrta)
+print ('yinrta =', mass.yinrta)
+print ('zinrta =', mass.zinrta)
+print()
+time.sleep(2)
+print()
 for iM in range(nM):
-
-    print 'mode_idx', iM
-
-    print 'freq =', modal.freq[iM]
-    print 'xmpf =', modal.xmpf[iM]
-    print 'ympf =', modal.ympf[iM]
-    print 'zmpf =', modal.zmpf[iM]
-    print 'node =', modal.node[iM, :]
-    print 'xdsp =', modal.xdsp[iM, :]
-    print 'ydsp =', modal.ydsp[iM, :]
-    print 'zdsp =', modal.zdsp[iM, :]
-    print 'xrot =', modal.xrot[iM, :]
-    print 'yrot =', modal.yrot[iM, :]
-    print 'zrot =', modal.zrot[iM, :]
-    print
-
-'''
+    print ('mode_idx', iM)
+    print ('freq =', modal.freq[iM])
+    print ('xmpf =', modal.xmpf[iM])
+    print ('ympf =', modal.ympf[iM])
+    print ('zmpf =', modal.zmpf[iM])
+    print ('node =', modal.node[iM, :])
+    print ('xdsp =', modal.xdsp[iM, :])
+    print ('ydsp =', modal.ydsp[iM, :])
+    print ('zdsp =', modal.zdsp[iM, :])
+    print ('xrot =', modal.xrot[iM, :])
+    print ('yrot =', modal.yrot[iM, :])
+    print ('zrot =', modal.zrot[iM, :])
+    print()
